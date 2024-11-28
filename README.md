@@ -1,15 +1,24 @@
 # XAI_boron_LA
 
 ## Project Description
-This project focuses on Explainable AI (XAI) techniques applied to the study and design of Boron Lewis acids. It is associated to the article : Constructing and explaining machine learning models for chemistry: example of the exploration and design of boron derivatives with targeted Lewis acidity
+This repository provides resources and tools for applying Explainable AI (XAI) techniques to the study and design of Boron Lewis acids. It accompanies the article:
+"Constructing and explaining machine learning models for chemistry: example of the exploration and design of boron derivatives with targeted Lewis acidity."
 
-#### Reference: 
+This project demonstrates the use of machine learning models to predict and interprete Fluoride Ion Affinities (FIA) of various molecular scaffolds, showcasing how explainability can aid in understanding and guiding molecular design.
+
+#### Reference:
 
 ## Installation
-To install the necessary dependencies, run:
+After cloning the repository, install the necessary dependencies running : pip install -r requirements.txt
+
+## Repository Structure
+- scripts/: Contains the main scripts used in the project to perform the analyses and optimize ML models. The optimized ML models can be found in the scripts/models.py file.
+- data/: Includes datasets with Fluoride Ion Affinities (FIA) values (computed and predicted) for molecules, represented as SMILES strings. Quantum descriptors featurization of the database is also provided.
+- results/: Stores plots and tables published in the main text and supplementary materials of the article.
+- notebooks/: Contains Jupyter notebooks for reproducing results. These notebooks can be run independently and provide an interactive way to explore the data and models.
+
 
 ## Usage
+Use the Jupyter notebooks in the notebooks/ folder to reproduce analyses or customize the workflows for new data. For example, this material can be used to unravel structure-property relationships for another chemical problem (other chemical property, reaction selectivities, yields...).
 
-Scripts containing main codes to reproduce results and optimized ML models can be found in the ####scripts folder. Several notebooks can be run independently to reproduce figures of the publication.
-All the material can be further used to investigate the structure-property link and molecular design for another chemical problem including for example other chemical properties or reaction selectivities or yields of chemical reactions.
 
