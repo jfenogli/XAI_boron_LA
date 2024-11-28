@@ -1,5 +1,6 @@
 from rdkit import Chem
 from rdkit.Chem import AllChem
+from rdkit.Chem import Descriptors
 import deepchem as dc #for RDKit descriptors
 import numpy as np
 
@@ -27,7 +28,7 @@ def get_names(descriptors):
     elif descriptors == 'quantum':
         names = np.concatenate((data_Q_tot['global'].columns.to_list(), data_Q_tot['atom1'].columns.to_list()))
         
-    elif descriptors == "sigman":
+    elif descriptors == "hammett":
         names = list(np.concatenate((df_sigman['ortho'].set_index('R-ortho').columns.to_list(), df_sigman['meta'].set_index('R-meta').columns.to_list(), df_sigman['para'].set_index('R-para').columns.to_list())))
     
     return(names)
@@ -40,7 +41,7 @@ def B_index(mol):
     return N
 
 
-def generate_morgan_matrix(smiles):#une ligne = description d'une molecule
+def generate_morgan_matrix(smiles):
     morgan_matrix = np.zeros((1,1024))
     
     for smi in smiles : 
@@ -60,23 +61,18 @@ def generate_morgan_matrix(smiles):#une ligne = description d'une molecule
     return(morgan_matrix)
 
 def get_features(df, smi):
-    """ df: dataframe de featurisation du dataset
-        smi: SMILES de ta molecule
-        returns: vecteur avec tous les paramètres"""    
+    """ df: featurized dataset
+        smi: SMILES of the molecule
+        returns: feature vector of the molecule"""    
     features = np.concatenate((np.array(df['global'].loc[smi]), np.array(df['atom1'].loc[smi])))
     return features
 
-def create_descriptors(smiles, descriptors, depth = 3, data = data_Q_tot, structure = None, n_bit = 1024):
+def create_descriptors(smiles, descriptors, data = data_Q_tot, structure = None, n_bit = 1024):
     """ smiles : list of smiles for the molecules
-        depth : in case of RAC
-        descriptors: "fingerprints", "RAC", "quantum"; type : str
+        descriptors: "fingerprints", "quantum", "rdkit", "hammett"; type : str
         returns : X: descriptors of the molecules """
-    if descriptors == "RAC":
-        X = []
-        for smi in smiles:
-            X.append(rac_descriptor(smi,depth))
     if descriptors == "fingerprints":
-            X = generate_morgan_matrix(smiles, n_bit)
+            X = generate_morgan_matrix(smiles)
     if descriptors == "quantum":
         X = []
         df = pd.Series(data) 
@@ -87,7 +83,7 @@ def create_descriptors(smiles, descriptors, depth = 3, data = data_Q_tot, struct
         featurizer = dc.feat.RDKitDescriptors()
         X = featurizer.featurize(smiles) 
   
-    if descriptors == "sigman":##Substituents descriptors
+    if descriptors == "hammett": ## Substituents descriptors
         df = df_sigman
         X = []
         for smi in smiles :

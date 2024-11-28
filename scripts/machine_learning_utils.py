@@ -35,32 +35,27 @@ def split(X,Y,test_size, shuffle = True): #split&scale the dataset
         Y: property of interest, e.g. FIA ; type : array or list
         returns: matrixes splitting the dataset between train and test"""
     X_train, X_test, Y_train, Y_test = train_test_split(X, Y, test_size = test_size, shuffle = shuffle)
+    var_selector =  VarianceThreshold()
+    X_train = var_selector.fit_transform(X_train)
+    X_test = var_selector.transform(X_test)
     scaler = StandardScaler().fit(X_train)
     X_train = scaler.transform(X_train)
     X_test = scaler.transform(X_test)
     X_train, X_test = delete_columns(X_train, X_test)
     return(X_train, X_test, Y_train, Y_test)
 
-     
 
 
-
-def evaluate_model(model, X,Y, n_rep):
-    pipeline = Pipeline(steps=[('scaler', StandardScaler()),('selector', VarianceThreshold()), ('m',model)])
-    cv = RepeatedKFold(n_splits=10, n_repeats=n_rep)
-    scores = cross_val_score(pipeline, X, Y, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
-    return(scores)
-
-#fonctions pour pouvoir avoir accès aux Y_pred_test
+#functions to access Y_pred_test
 
 def train_predict(X_train, X_test, Y_train, Y_test, model):
+    var_selector =  VarianceThreshold()
+    X_train = var_selector.fit_transform(X_train)
+    X_test = var_selector.transform(X_test)
     scaler = StandardScaler().fit(X_train) ## descriptors are scaled
     X_train = scaler.transform(X_train)
     X_test = scaler.transform(X_test)    
-    selector = VarianceThreshold()
-    selector.fit(X_train) ## features that have same value 
-    X_train = selector.transform(X_train) # for every molecule are eliminated
-    X_test = selector.transform(X_test) # it is very important to fit the preprocessing only 
+    # it is very important to fit the preprocessing only 
     #on train data to avoid data leakage
     
     model.fit(X_train, Y_train)
@@ -94,5 +89,47 @@ def K_Fold_model_evaluation(model,X,Y,n_fold, n_repet):
     return(total_Y_test, total_Y_pred_test, list_MAE)
 
 
+def evaluate_model(model, X,Y, n_rep =10):
+    pipeline = Pipeline(steps=[('selector', VarianceThreshold()),('scaler', StandardScaler()),('m',model)])
+    cv = RepeatedKFold(n_splits=10, n_repeats=n_rep)
+    scores = cross_val_score(pipeline, X, Y, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+    return(scores)
+
+def evaluate_model_fp(model, X,Y, n_rep =10): #no scaling for fp because bit-vectors
+    pipeline = Pipeline(steps=[('selector', VarianceThreshold()), ('m',model)])
+    cv = RepeatedKFold(n_splits=10, n_repeats=n_rep)
+    scores = cross_val_score(pipeline, X, Y, scoring='neg_mean_absolute_error', cv=cv, n_jobs=-1)
+    return(scores)
+
+def evaluate_model_test_set(model, X_train, Y_train, X_test, Y_test):
+    selector = VarianceThreshold()
+    selector.fit(X_train) ## features that have same value 
+    X_train = selector.transform(X_train) # for every molecule are eliminated
+    X_test = selector.transform(X_test) 
+    scaler = StandardScaler().fit(X_train) ## descriptors are scaled
+    X_train = scaler.transform(X_train)
+    X_test = scaler.transform(X_test)    
+    # it is very important to fit the preprocessing only 
+    #on train data to avoid data leakage
+    
+    model.fit(X_train, Y_train)
+    Y_pred_test = model.predict(X_test)
+    MAE = mean_absolute_error(Y_test, model.predict(X_test))
+    
+    return(MAE)
+
+def evaluate_model_test_set_fp(model, X_train, Y_train, X_test, Y_test):
+   
+    selector = VarianceThreshold()
+    selector.fit(X_train) ## features that have same value 
+    X_train = selector.transform(X_train) # for every molecule are eliminated
+    X_test = selector.transform(X_test) # it is very important to fit the preprocessing only 
+    #on train data to avoid data leakage
+    
+    model.fit(X_train, Y_train)
+    Y_pred_test = model.predict(X_test)
+    MAE = mean_absolute_error(Y_test, model.predict(X_test))
+    
+    return(MAE)
 
 
