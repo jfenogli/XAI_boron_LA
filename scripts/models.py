@@ -20,11 +20,11 @@ dict_models = {
             'quantum' : Ridge(alpha=5, max_iter=500, random_state=1, tol=0.0001, solver = 'sparse_cg'), 'hammett': Ridge(alpha=0.01, max_iter=None, random_state=1, tol=0.0001, solver = 'auto')},
     
     "Bayes. Ridge": {'fingerprints' : BayesianRidge(alpha_1=1e-07, alpha_2=0.0001, lambda_1=0.0001, lambda_2=1e-07,
-              n_iter=300, tol=0.01), 'rdkit': BayesianRidge(alpha_1=0.0001, alpha_2=1e-07, lambda_1=1e-07, lambda_2=0.0001,
-              n_iter=300, tol=0.01), 
+              tol=0.01), 'rdkit': BayesianRidge(alpha_1=0.0001, alpha_2=1e-07, lambda_1=1e-07, lambda_2=0.0001,
+              tol=0.01), 
             'quantum' : BayesianRidge(alpha_1=1e-07, alpha_2=1e-07, lambda_1=0.0001, lambda_2=0.0001,
-              n_iter=300, tol=0.01), 'hammett': BayesianRidge(alpha_1=0.0001, alpha_2=1e-07, lambda_1=1e-07, lambda_2=0.0001,
-              n_iter=300, tol=0.01)},
+             tol=0.01), 'hammett': BayesianRidge(alpha_1=0.0001, alpha_2=1e-07, lambda_1=1e-07, lambda_2=0.0001,
+             tol=0.01)},
     
     "LASSO" :{'fingerprints' : Lasso(alpha=1, max_iter=1000, precompute=False, random_state=1,
       selection='random', tol=0.001), 'rdkit': Lasso(alpha=0.1, max_iter=10000, precompute=False, selection = 'cyclic', random_state=1, tol=0.0001), 
