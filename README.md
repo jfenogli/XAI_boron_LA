@@ -9,7 +9,7 @@ This project demonstrates the use of machine learning models to predict and inte
 #### Reference:
 
 ## Installation
-After cloning the repository, install the necessary dependencies running in the requirements
+After cloning the repository, install the necessary dependencies in the requirements
 
 ## Repository Structure
 - scripts/: Contains the main scripts used in the project to perform the analyses and optimize ML models. The optimized ML models can be found in the scripts/models.py file.
