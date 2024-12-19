@@ -2,7 +2,7 @@
 
 ## Project Description
 This repository provides resources and tools for applying Explainable AI (XAI) techniques to the study and design of Boron Lewis acids. It accompanies the article:
-"Constructing and explaining machine learning models for chemistry: example of the exploration and design of boron derivatives with targeted Lewis acidity."
+"Constructing and explaining machine learning models for chemistry: example of the exploration and design of boron-based Lewis acids."
 
 This project demonstrates the use of machine learning models to predict and interprete Fluoride Ion Affinities (FIA) of various molecular scaffolds, showcasing how explainability can aid in understanding and guiding molecular design.
 
