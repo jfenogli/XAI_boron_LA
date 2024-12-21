@@ -2,10 +2,17 @@ conda create --name xai_boron_la python=3.10.8
 
 conda activate xai_boron_la
 
-conda install jupyter pandas pyyaml fabric scipy appdirs pymongo matplotlib openpyxl 
+conda install pandas pyyaml fabric scipy appdirs pymongo openpyxl 
 
-conda install seaborn pytorch scikit-learn
+conda install anaconda::jupyter
+
+conda install anaconda::matplotlib
+
+conda install pytorch scikit-learn
 
 conda install -c conda-forge openbabel py3dmol
 
-pip install rdkit-pypi deepchem tensorflow
+pip install seaborn rdkit-pypi deepchem tensorflow
+
+
+
