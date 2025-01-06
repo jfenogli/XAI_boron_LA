@@ -10,7 +10,7 @@ This project demonstrates the use of machine learning models to predict and inte
 https://doi.org/10.48550/arXiv.2501.01576
 
 ## Installation
-After cloning the repository, install the necessary dependencies in the requirements
+After cloning the repository, install the necessary dependencies in the requirements.txt file or simply run `conda env create -f xai_boron_la.yml`
 
 ## Repository Structure
 - scripts/: Contains the main scripts used in the project to perform the analyses and optimize ML models. The optimized ML models can be found in the scripts/models.py file.
