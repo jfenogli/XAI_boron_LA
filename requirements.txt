@@ -12,6 +12,8 @@ conda install pytorch scikit-learn
 
 conda install -c conda-forge openbabel py3dmol
 
+conda install anaconda::statsmodels
+
 pip install seaborn rdkit-pypi deepchem tensorflow
 
 
