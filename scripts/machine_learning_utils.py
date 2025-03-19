@@ -2,14 +2,11 @@ import numpy as np
 import pandas as pd
 
 from sklearn.model_selection import train_test_split
-from sklearn import linear_model
 from sklearn.metrics import mean_squared_error, r2_score, mean_absolute_error
 from sklearn.preprocessing import StandardScaler
-from sklearn.metrics import mean_squared_error, r2_score
 from sklearn.model_selection import cross_val_score
 from sklearn.model_selection import RepeatedKFold
 from sklearn.pipeline import Pipeline
-
 from sklearn.feature_selection import VarianceThreshold
 from sklearn.model_selection import KFold
 
@@ -70,7 +67,7 @@ def K_Fold_model_evaluation(model,X,Y,n_fold, n_repet):
     list_MAE = []
     
     for i in range(n_repet):
-        KF = KFold(n_splits=n_fold, shuffle=True)# do not fix the random state or it will give the same split for each n_rep
+        KF = KFold(n_splits=n_fold, shuffle=True, random_state=42)
         for i, (train_index, test_index) in enumerate(KF.split(X,Y)):
             X_train = X[train_index]
             X_test = X[test_index]
