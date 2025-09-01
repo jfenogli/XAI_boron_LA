@@ -8,6 +8,7 @@ This project demonstrates the use of machine learning models to predict and inte
 
 #### Reference:
 https://doi.org/10.48550/arXiv.2501.01576
+[![DOI](https://zenodo.org/badge/851641206.svg)](https://doi.org/10.5281/zenodo.17019794)
 
 ## Installation
 After cloning the repository, install the necessary dependencies in the requirements.txt file or simply run `conda env create -f xai_boron_la.yml`
